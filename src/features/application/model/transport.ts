@@ -6,7 +6,9 @@ export type Transport = {
 }
 
 export const errorHappened = createEvent<string>();
+
 export const exceptionThrown = errorHappened.prepend((error: Error) => error.message);
+
 export const fetchingStatusChanged = createEvent<boolean>();
 
 export const $transport = createStore<Transport>({

@@ -1,0 +1,15 @@
+%input{
+  padding:8px;
+
+  &.transparent{
+    border:none;
+    background:transparent;
+    padding:8px 0;
+    outline:none;
+  }
+
+  &.block{
+    display:block;
+    width:100%;
+  }
+}

@@ -9,8 +9,6 @@ export type Language = {
 
 export type Languages = Language[];
 
-
-
 export const $languages = createStore<Languages>([]);
 
 export const fetchLanguagesFx = createEffect({

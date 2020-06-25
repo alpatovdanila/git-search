@@ -1,12 +1,16 @@
-import {createStore, createEvent} from "effector";
-import {Language} from "@/features/search/model/languages";
+import {createStore, createEvent, createEffect, forward} from "effector";
+import {createLocationSearch} from "@/lib/locationSearch";
+
+export type Order = 'desc' | 'asc';
+
+export type Sort = 'stars' | 'forks' | 'updated' | 'best-match' | 'help-wanted-issues'
 
 export type SearchParameters = {
     query: string,
-    language: Language | null,
-    order: string | null,
+    language: string | null,
+    order: Order | null,
+    sort: Sort | null,
     page: number,
-    sort: string | null,
     perPage: number,
 }
 
@@ -20,5 +24,13 @@ export const $searchParameters = createStore<SearchParameters>({
 });
 
 export const searchParametersUpdated = createEvent<Partial<SearchParameters>>();
+
+const propagateToURLFx = createEffect({
+    handler: (parameters: SearchParameters) => {
+        window.history.pushState({}, '', createLocationSearch(parameters))
+    }
+});
+
+forward({from: $searchParameters, to: propagateToURLFx});
 
 $searchParameters.on(searchParametersUpdated, (state, parameters) => ({...state, ...parameters}));
