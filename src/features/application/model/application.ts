@@ -16,7 +16,7 @@ export const $application = createStore<Application>({
 
 export const applicationStarted = createEvent();
 
-export const preloadAppFx = createEffect().use(()=>Promise.all([fetchLanguagesFx(), fetchEmojisFx]));
+export const preloadAppFx = createEffect().use(()=>Promise.all([fetchLanguagesFx(), fetchEmojisFx()]));
 
 $application.on(applicationStarted, (state)=> ({...state, started:true}) );
 $application.on(preloadAppFx.done, (state)=> ({...state, ready:true }) );
