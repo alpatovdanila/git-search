@@ -1,13 +1,28 @@
 import React, {useEffect} from "react";
 import {applicationStarted} from "@/features/application/model/application";
-import {useStore} from "effector-react";
-import {$searchParameters, searchParametersUpdated} from "@/features/search/model/searchParameters";
-import {SearchForm} from "@/features/search/components/search-form";
+import {Router} from "@/features/application/components/router";
+import {Search} from "@/pages/search";
+import {Index} from "@/pages/index";
+import {RouteProps, Redirect} from "wouter";
 
-export const App = ()=> {
-    const store = useStore($searchParameters);
+
+const appRoutes: RouteProps[] = [
+    {
+        component: Index,
+        path: '/'
+    },
+    {
+        component: Search,
+        path: '/search/'
+    },
+    {
+        path: '/:all*',
+        children: [<Redirect to={"/"}/>]
+    }
+]
+
+
+export const App = () => {
     useEffect(() => applicationStarted(), []);
-    return <>
-        <SearchForm/>
-    </>
+    return <Router routes={appRoutes}/>
 }

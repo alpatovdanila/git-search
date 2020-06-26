@@ -1,8 +1,8 @@
 
-export const pick = (object:object, sliceDefinition: object) : object=> {
-    const slice = {};
+export const pick = <S extends { [index: string]: any }>(object: Partial<S>, sliceDefinition: S): S => {
+    const slice: any = {};
 
-    for(let key in sliceDefinition){
+    for (let key in sliceDefinition) {
         slice[key] = object[key] || sliceDefinition[key];
     }
 

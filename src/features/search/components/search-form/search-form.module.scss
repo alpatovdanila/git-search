@@ -1,0 +1,17 @@
+.searchForm{
+  display:flex;
+  align-items:center;
+  border:1px solid gray;
+  border-radius:500px;
+
+  & .input{
+    flex:1;
+  }
+  & .select{
+    flex:0 auto;
+  }
+
+  &.focused{
+    border-color:darkgray;
+  }
+}

@@ -37,11 +37,9 @@ export const invalidateResults = createEffect({
 
 $searchResult.on(invalidateResults.done, (state, {result}) => result);
 
-
-
 guard({
     source:$searchParameters,
     target:invalidateResults,
-    filter: value => !!value.query
+    filter: params => !!params.query
 });
 

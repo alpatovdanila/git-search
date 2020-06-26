@@ -1,5 +1,6 @@
-import {createStore, createEvent, createEffect, forward} from "effector";
-import {createLocationSearch} from "@/lib/locationSearch";
+import {createStore, createEvent, createEffect, forward, sample} from "effector";
+import {createLocationSearch, getLocationSearchParams} from "@/lib/locationSearch";
+import {pick} from "@/lib/pick";
 
 export type Order = 'desc' | 'asc';
 
@@ -14,23 +15,27 @@ export type SearchParameters = {
     perPage: number,
 }
 
-export const $searchParameters = createStore<SearchParameters>({
+// Retrieve initial state from search URL
+const initialState = pick(getLocationSearchParams(window.location.search), {
     query: '',
     language: null,
     order: null,
     sort: null,
     page: 1,
-    perPage: 25,
+    perPage: 25
 });
+
+export const $searchParameters = createStore<SearchParameters>(initialState);
 
 export const searchParametersUpdated = createEvent<Partial<SearchParameters>>();
 
+$searchParameters.on(searchParametersUpdated, (state, parameters) => ({...state, ...parameters}));
+
 const propagateToURLFx = createEffect({
     handler: (parameters: SearchParameters) => {
-        window.history.pushState({}, '', createLocationSearch(parameters))
+        window.history.pushState({}, '', '/search/?' + createLocationSearch(parameters))
     }
 });
 
 forward({from: $searchParameters, to: propagateToURLFx});
 
-$searchParameters.on(searchParametersUpdated, (state, parameters) => ({...state, ...parameters}));

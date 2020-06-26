@@ -16,11 +16,11 @@ type Props<T> = {
     onChange: (value: T) => void,
     transparent?: boolean,
     block?: boolean,
-    memoize?: boolean,
     emptyItem?: null | string,
 }
 
-export const Select = <T, >({options, value = null, onChange, transparent = false, block = false, memoize = true, emptyItem = null}: Props<T>) => {
+export const Select = <T, >({options, value = null, onChange, transparent = false, block = false, emptyItem = null}: Props<T>) => {
+
     const cns = cn(
         [styles.select],
         {
@@ -38,8 +38,7 @@ export const Select = <T, >({options, value = null, onChange, transparent = fals
         onChange={handleSelectChange}
     >
         {!!emptyItem && <option value={''}>{emptyItem}</option>}
-        {memoize && <MemoizedSelectOptions options={options}/>}
-        {!memoize && <SelectOptions<T> options={options}/>}
+        <MemoizedSelectOptions options={options}/>
     </select>
 }
 
@@ -49,4 +48,4 @@ const SelectOptions = <T, >({options}: { options: SelectOptions<T> }) => <>
     ))}
 </>
 
-const MemoizedSelectOptions = React.memo(SelectOptions);
+const MemoizedSelectOptions = React.memo(SelectOptions, (prev, next) => prev.options.length === next.options.length);

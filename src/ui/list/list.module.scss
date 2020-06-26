@@ -1,0 +1,12 @@
+.list{
+  & .listItem{
+    min-height:32px;
+    display: flex;
+    align-items: center;
+    padding:0 8px;
+
+    &:hover{
+      background:blue;
+    }
+  }
+}

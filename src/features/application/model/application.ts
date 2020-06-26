@@ -1,8 +1,7 @@
 import {createEffect, createEvent, createStore, forward, sample} from 'effector';
 import {fetchEmojisFx} from "@/features/search/model/emojis";
 import {fetchLanguagesFx} from "@/features/search/model/languages";
-import {searchParametersUpdated} from "@/features/search/model/searchParameters";
-import {getLocationSearchParams} from "@/lib/locationSearch";
+
 
 export type Application = {
     ready: boolean,

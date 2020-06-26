@@ -273,9 +273,9 @@ module.exports = function (webpackEnv) {
                 // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
                 'react-native': 'react-native-web',
                 '@': path.resolve(paths.appSrc),
-                "react": "preact/compat",
-                "react-dom/test-utils": "preact/test-utils",
-                "react-dom": "preact/compat",
+                // "react": "preact/compat",
+                // "react-dom/test-utils": "preact/test-utils",
+                // "react-dom": "preact/compat",
                 // Must be below test-utils
 
             },
