@@ -1,4 +1,4 @@
-import React, {useState, useMemo, createRef, useEffect} from 'react';
+import React, {useState, useMemo, createRef, useEffect, memo, useCallback} from 'react';
 import {InputText} from "@/ui/input-text";
 import style from './combobox.module.scss';
 import {useClickAway} from 'react-use';
@@ -26,56 +26,65 @@ type Props = {
 export const Combobox = ({options, value = null, onChange, transparent = false, block = false, emptyItem = null}: Props) => {
     const [query, setQuery] = useState('');
     const [active, setActive] = useState(false);
-    const [inputFocused, setInputFocused] = useState(false);
 
     const inputRef = createRef<HTMLInputElement>();
     const containerRef = createRef<HTMLDivElement>();
 
-    useClickAway(containerRef, () => {
+    const activate = () => {
+        setActive(true)
+    };
+
+    const deactivate = () => {
         setActive(false);
-    });
+        setQuery('')
+    };
 
     const handleOptionSelect = (option: ComboboxOption) => {
         onChange(option.value);
-        setActive(false);
+        deactivate();
     }
 
     const filteredOptions = useMemo<ComboboxOption[]>(() => {
         return options.filter((option: ComboboxOption) => {
-            if(!query || !query.trim()) return true;
-            else return option.value.toLowerCase().indexOf(query.toLowerCase()) > -1
+            if (!query || !query.trim()) return true;
+            return option.value.toLowerCase().indexOf(query.toLowerCase()) > -1
         });
     }, [query, options]);
 
     useEffect(() => {
-        if (active && inputRef.current) {
-            inputRef.current.focus();
-        }
+        if (active && inputRef.current) inputRef.current.focus();
     }, [active]);
+
+    useClickAway(containerRef, deactivate);
 
     return <div className={style.combobox} ref={containerRef}>
         {active && (<>
-                <InputText
-                    onDebouncedChange={setQuery} value={query} ref={inputRef}
-                    onFocus={() => setInputFocused(true)}
-                />
+                <InputText onDebouncedChange={setQuery} value={query} ref={inputRef} transparent block/>
                 <div className={style.dropdown}>
                     <ScrollContainer maxHeight={'300px'}>
-                        <List>
-                            {filteredOptions.map(option => <>
-                                <ListItem
-                                    className={style.listItem}
-                                    onClick={() => handleOptionSelect(option)}>
-                                    {option.label}
-                                </ListItem>
-                            </>)}
-                        </List>
+                        <ComboboxOptionsList options={filteredOptions} onOptionClick={handleOptionSelect}/>
                     </ScrollContainer>
                 </div>
             </>
         )}
         {!active && <div className={style.listItem} onClick={() => setActive(true)}>{value || emptyItem}</div>}
     </div>
+};
+
+
+type ItemProps = {
+    options: ComboboxOption[],
+    onOptionClick: (option: ComboboxOption) => void,
 }
+
+const ComboboxOptionsList = ({options, onOptionClick}: ItemProps) => {
+    return <List>
+        {options.map((option, index) => <ListItem
+            key={option.key ? option.key : index}
+            onClick={() => onOptionClick(option)}>
+            {option.label}
+        </ListItem>)}
+    </List>
+};
 
 

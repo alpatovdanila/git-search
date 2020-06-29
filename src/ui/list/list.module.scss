@@ -1,12 +1,18 @@
-.list{
-  & .listItem{
-    min-height:32px;
+.list {
+  & .listItem {
+    min-height: 32px;
     display: flex;
     align-items: center;
-    padding:0 8px;
+    padding: 2px 8px;
 
-    &:hover{
-      background:blue;
+    &:hover {
+      background: blue;
+      color: white;
+    }
+
+    &.active {
+      background: blue;
+      color: white;
     }
   }
 }
