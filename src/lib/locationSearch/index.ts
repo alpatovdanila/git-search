@@ -1,13 +1,19 @@
-export const createLocationSearch = (pairs: { [key: string]: any }, suppressEncoding = false) : string => {
-  const params = new URLSearchParams()
+export const createLocationSearch = (
+  pairs: { [key: string]: any },
+  suppressEncoding = false
+): string => {
+  const params = new URLSearchParams();
 
-  for(const key in pairs){
-    if(pairs[key]) params.append(key, pairs[key]);
+  for (const key in pairs) {
+    if (pairs[key]) params.append(key, pairs[key]);
   }
-  return suppressEncoding ? decodeURIComponent(params.toString()) : params.toString();
+
+  return suppressEncoding
+    ? decodeURIComponent(params.toString())
+    : params.toString();
 };
 
-export const getLocationSearchParams = (url:string) : Object => {
+export const getLocationSearchParams = (url: string): Object => {
   const extracted = {};
   const searchParams = new URLSearchParams(url);
 
@@ -15,6 +21,4 @@ export const getLocationSearchParams = (url:string) : Object => {
     if (value) extracted[key] = value;
   }
   return extracted;
-}
-
-
+};

@@ -1,0 +1,83 @@
+$spacings: 2, 4, 8, 16, 20, 24, 28, 32, 48;
+
+.flexRow {
+
+  display: inline-flex;
+
+  &.block {
+    display: flex;
+    width: 100%;
+  }
+
+  &.fullHeight {
+    height: 100%;
+  }
+
+  &.wrap {
+    flex-wrap: wrap;
+  }
+
+  &.valignCenter {
+    align-items: center;
+  }
+
+  &.alignCenter {
+    justify-content: center;
+  }
+
+  @each $spacing in $spacings {
+    &.spacing#{$spacing} {
+      & > .flexItem:not(:last-of-type) {
+        margin-right: #{$spacing}px;
+      }
+    }
+  }
+}
+
+.flexCol {
+
+  display: inline-flex;
+  flex-direction: column;
+
+  &.block {
+    width: 100%;
+  }
+
+  &.fullHeight {
+    height: 100%;
+  }
+
+  &.wrap {
+    flex-wrap: wrap;
+  }
+
+  &.alignCenter {
+    align-items: center;
+  }
+
+  &.valignCenter {
+    justify-content: center;
+  }
+
+  @each $spacing in $spacings {
+    &.spacing#{$spacing} {
+      & > .flexItem:not(:last-of-type) {
+        margin-bottom: #{$spacing}px;
+      }
+    }
+  }
+}
+
+.flexItem {
+  @for $col from 1 to 12 {
+    &.col_#{$col} {
+      $percentage: (100%/12)*$col;
+      flex: 0 0 $percentage;
+      max-width: $percentage;
+    }
+  }
+
+  & .blockItem {
+    width: 100%
+  }
+}

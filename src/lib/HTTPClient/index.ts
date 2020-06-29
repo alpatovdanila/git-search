@@ -1,12 +1,9 @@
 type HTTPClient = (options: Request) => Promise<any>;
 
-
-
 export type HTTPClientConfig = {
   baseUrl: string;
   headers?: object;
   options?: object;
-
 };
 
 export type Request = {
@@ -15,32 +12,29 @@ export type Request = {
   headers?: object;
   body?: object;
   options?: object;
-}
-
+};
 
 export const createClient = ({
   baseUrl = "",
   headers: clientHeaders = {},
-  options: clientOptions = {}
+  options: clientOptions = {},
 }: HTTPClientConfig): HTTPClient => {
-
   const client = async ({
     method,
     path,
     headers: requestHeaders = {},
     body: requestBody,
-    options: requestOptions = {}
+    options: requestOptions = {},
   }: Request) => {
-
     const fetchOptions: object = {
       method,
       headers: {
         ...requestHeaders,
-        ...clientHeaders
+        ...clientHeaders,
       },
       ...requestOptions,
       ...clientOptions,
-      body:requestBody,
+      body: requestBody,
     };
 
     const response = await fetch(baseUrl + path, fetchOptions);

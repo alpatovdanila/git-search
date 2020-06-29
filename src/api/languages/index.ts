@@ -1,10 +1,9 @@
 import { get } from "../client";
-import {Language, Languages} from "@/features/search/model/languages";
+import { Language, Languages } from "@/features/search/model/languages";
 
-type Response = { [key:string]: Language }
+type Response = { [key: string]: Language };
 
 const normalizeLanguagesFetch = (json: Response) => Object.values(json);
 
-export const getLanguages = (): Promise<Languages> => get<Response>("/languages").then(normalizeLanguagesFetch);
-
-  
+export const getLanguages = (): Promise<Languages> =>
+  get<Response>("/languages").then(normalizeLanguagesFetch);

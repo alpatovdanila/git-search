@@ -1,0 +1,16 @@
+@import '../../styles/variables';
+
+.repository{
+  display:block;
+  .url{
+
+    color:$color-gray;
+  }
+  .description{
+    line-height:146%;
+
+    margin:0;
+    padding:0;
+    max-width:800px;
+  }
+}

@@ -1,18 +1,25 @@
+@import '../../styles/variables';
+
 .list {
   & .listItem {
     min-height: 32px;
     display: flex;
     align-items: center;
     padding: 2px 8px;
+    cursor:pointer;
 
-    &:hover {
-      background: blue;
+    &:hover, &.hover {
+      background: $color-list;
       color: white;
     }
 
     &.active {
       background: blue;
       color: white;
+    }
+
+    &.focus, &:focus{
+      background-color:lighten($color-list, 5%);
     }
   }
 }

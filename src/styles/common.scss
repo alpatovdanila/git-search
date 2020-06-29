@@ -1,15 +1,45 @@
-%input{
-  padding:8px;
+@import "variables";
 
-  &.transparent{
-    border:none;
-    background:transparent;
-    padding:8px 0;
-    outline:none;
+%input {
+  font-family: inherit;
+  font-size:inherit;
+  display:inline-block;
+  vertical-align: middle;
+  $base-color: $color-gray-5;
+  font-weight: 300;
+  padding: 0 16px;
+  height: 48px;
+  background: $base-color;
+  border: none;
+  border-radius: 3px;
+
+  &:hover, &.hover {
+    background: lighten($base-color, 3%);
   }
 
-  &.block{
-    display:block;
-    width:100%;
+  &:focus, &.focus {
+    outline: none;
+    background: lighten($base-color, 6%)
+  }
+
+  &.size_l {
+    height: 56px;
+  }
+
+  &.size_xl {
+    height: 64px
+  }
+
+  &.transparent {
+    border: none;
+    background: transparent;
+    outline: none;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  &.block {
+    display: block;
+    width: 100%;
   }
 }
