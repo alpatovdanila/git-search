@@ -1,25 +1,33 @@
 @import '../../styles/variables';
 
 .list {
-  & .listItem {
-    min-height: 32px;
-    display: flex;
-    align-items: center;
-    padding: 2px 8px;
-    cursor:pointer;
 
-    &:hover, &.hover {
-      background: $color-list;
-      color: white;
-    }
+}
 
-    &.active {
-      background: blue;
-      color: white;
-    }
+.listItem {
+  height: 28px;
+  display: flex;
+  align-items: center;
+  padding: 2px 8px;
+  cursor:pointer;
 
-    &.focus, &:focus{
-      background-color:lighten($color-list, 5%);
-    }
+  &:hover, &.hover {
+    background: $color-list;
+    color: white;
+  }
+
+  &.disabled{
+    color:$color-gray-3;
+    font-style: italic;
+    pointer-events: none;
+  }
+
+  &.active {
+    background: blue;
+    color: white;
+  }
+
+  &.focus, &:focus{
+    background-color:lighten($color-list, 5%);
   }
 }

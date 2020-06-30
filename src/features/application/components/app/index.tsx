@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import styles from "./app.module.scss";
 import { applicationStarted } from "@/features/application/model/application";
 import { Router } from "@/features/application/components/router";
 import { Search } from "@/pages/search";
@@ -23,11 +22,5 @@ const appRoutes: RouteProps[] = [
 
 export const App = () => {
   useEffect(() => applicationStarted(), []);
-  return (
-    <div className={styles.app}>
-      <div className={styles.content}>
-        <Router routes={appRoutes} />
-      </div>
-    </div>
-  );
+  return <Router routes={appRoutes} />;
 };

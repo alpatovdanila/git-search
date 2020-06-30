@@ -50,6 +50,7 @@ export const SearchForm = ({ autoSubmitTimeout = 250 }) => {
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
             autoFocus
+            placeholder={"Repository name, or keywords"}
           />
         </FlexItem>
         <FlexItem>

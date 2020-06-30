@@ -1,4 +1,4 @@
-import React, { createRef, forwardRef, useEffect, useState } from "react";
+import React, { forwardRef, useEffect, useState } from "react";
 import styles from "./input-text.module.scss";
 import cn from "classnames";
 

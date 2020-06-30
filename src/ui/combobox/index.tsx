@@ -1,18 +1,15 @@
-import React, { useState, useMemo, createRef, useEffect } from "react";
+import React, { useState, createRef, useEffect } from "react";
 import cn from "classnames";
 import { useClickAway } from "react-use";
-import { ScrollContainer } from "@/ui/scroll-container";
 import { InputSize, InputText } from "@/ui/input-text";
 import style from "./combobox.module.scss";
-
-import {
-  ComboboxChevron,
-  ComboboxList,
-  ComboboxValue,
-} from "@/ui/combobox/parts";
+import { ComboboxChevron } from "@/ui/combobox/combobox-chevron";
+import { ComboboxList } from "@/ui/combobox/combobox-list";
+import { ComboboxValue } from "@/ui/combobox/combobox-value";
+import { useFilteredOptions } from "@/ui/combobox/useFilteredOptions";
 
 export type ComboboxOption = {
-  value: string;
+  value: string | null;
   label: string;
   key?: React.Key;
 };
@@ -22,8 +19,8 @@ export type ComboboxOptions = ComboboxOption[];
 type Props = {
   options: ComboboxOptions;
   value: string | null;
+  onChange: (value: string | null) => void;
   size?: InputSize;
-  onChange: (value: string) => void;
   transparent?: boolean;
   block?: boolean;
   placeholder?: string;
@@ -40,40 +37,31 @@ export const Combobox = ({
 }: Props) => {
   const [query, setQuery] = useState("");
   const [active, setActive] = useState(false);
-
+  const filteredOptions = useFilteredOptions(options, query);
   const inputRef = createRef<HTMLInputElement>();
   const containerRef = createRef<HTMLDivElement>();
 
   const activate = () => setActive(true);
 
-  const deactivate = () => {
-    setActive(false);
-    setQuery("");
-  };
+  const deactivate = () => setActive(false);
 
-  const handleOptionSelect = (option: ComboboxOption) => {
-    onChange(option.value);
+  const submit = (value: string | null) => {
+    onChange(value);
     deactivate();
   };
+
+  const handleOptionSelect = (option: ComboboxOption) => submit(option.value);
 
   const handleInputKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Escape") deactivate();
   };
 
-  // Filter options
-  const filteredOptions = useMemo<ComboboxOption[]>(() => {
-    return options.filter((option: ComboboxOption) => {
-      if (!query || !query.trim()) return true;
-      return option.value.toLowerCase().indexOf(query.toLowerCase()) > -1;
-    });
-  }, [query, options]);
+  useClickAway(containerRef, deactivate);
 
-  // Focus input on combobox focus
   useEffect(() => {
     if (active && inputRef.current) inputRef.current.focus();
+    if (!active) setQuery("");
   }, [active]);
-
-  useClickAway(containerRef, deactivate);
 
   const cns = cn(style.combobox, {
     [style[`size_${size}`]]: size,
@@ -88,6 +76,7 @@ export const Combobox = ({
         <>
           <InputText
             onDebouncedChange={setQuery}
+            debounceChangeTimeout={50}
             value={query}
             ref={inputRef}
             size={size}
@@ -96,12 +85,10 @@ export const Combobox = ({
             transparent
           />
           <div className={style.dropdown}>
-            <ScrollContainer maxHeight={"300px"}>
-              <ComboboxList
-                options={filteredOptions}
-                onItemClick={handleOptionSelect}
-              />
-            </ScrollContainer>
+            <ComboboxList
+              options={filteredOptions}
+              onItemClick={handleOptionSelect}
+            />
           </div>
         </>
       )}
@@ -113,7 +100,6 @@ export const Combobox = ({
           onClick={activate}
         />
       )}
-
       <ComboboxChevron
         up={active}
         onClick={() => (active ? deactivate() : activate())}

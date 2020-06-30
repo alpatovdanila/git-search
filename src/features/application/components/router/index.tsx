@@ -6,7 +6,7 @@ type Props = {
   routes: RouteProps[];
 };
 
-export const Router = React.memo(({ routes }: Props) => (
+const RouterComponent = ({ routes }: Props) => (
   <>
     <Switch>
       {routes.map((route, key) => (
@@ -16,4 +16,6 @@ export const Router = React.memo(({ routes }: Props) => (
       ))}
     </Switch>
   </>
-));
+);
+
+export const Router = RouterComponent; //React.memo(RouterComponent);

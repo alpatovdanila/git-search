@@ -11,7 +11,7 @@ type Props = {
 };
 
 export const Repository = ({ repository }: Props) => {
-  const { url, name, description, language, stars, forks } = repository;
+  const { name, description, language, stars, forks } = repository;
   return (
     <div className={styles.repository}>
       <FlexRow col spacing={16}>

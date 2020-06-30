@@ -1,10 +1,4 @@
-import {
-  createStore,
-  createEvent,
-  createEffect,
-  forward,
-  sample,
-} from "effector";
+import { createStore, createEvent, createEffect, forward } from "effector";
 import {
   createLocationSearch,
   getLocationSearchParams,

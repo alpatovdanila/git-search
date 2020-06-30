@@ -1,10 +1,4 @@
-import {
-  createEffect,
-  createEvent,
-  createStore,
-  forward,
-  sample,
-} from "effector";
+import { createEffect, createEvent, createStore, forward } from "effector";
 import { fetchEmojisFx } from "@/features/search/model/emojis";
 import { fetchLanguagesFx } from "@/features/search/model/languages";
 

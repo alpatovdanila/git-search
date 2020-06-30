@@ -14,11 +14,19 @@ export const LanguageSelect = ({
   onChange,
 }: Props) => {
   const languageOptions = React.useMemo(() => {
-    return languages.map((language) => ({
+    const options = languages.map((language) => ({
       key: language.name,
       value: language.aliases[0],
       label: language.name,
     }));
+
+    return [
+      {
+        value: null,
+        label: "Any language",
+      },
+      ...options,
+    ];
   }, [languages.length]);
 
   return (

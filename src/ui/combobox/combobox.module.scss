@@ -25,6 +25,10 @@
     align-items: center;
   }
 
+  & .value.placeholder{
+    color:$color-gray-3;
+  }
+
   & .chevron{
     cursor:pointer;
   }

@@ -1,12 +1,13 @@
 import React from "react";
-import styles from "./list.module.scss";
+import cn from "classnames";
+import style from "./list.module.scss";
 
 export const List = ({
   children,
   className,
   ...rest
 }: React.HTMLAttributes<HTMLDivElement>) => (
-  <div {...rest} className={styles.list}>
+  <div {...rest} className={style.list}>
     {children}
   </div>
 );
@@ -14,12 +15,19 @@ export const List = ({
 export const ListItem = ({
   focus = false,
   children,
+  disabled = false,
   className,
   ...rest
-}: React.HTMLAttributes<HTMLDivElement> & { focus?: boolean }) => (
+}: React.HTMLAttributes<HTMLDivElement> & {
+  focus?: boolean;
+  disabled?: boolean;
+}) => (
   <div
     {...rest}
-    className={styles.listItem + (focus ? ` ${styles.focus}` : "")}
+    className={cn(style.listItem, {
+      [style.disabled]: disabled,
+      [style.focus]: focus,
+    })}
   >
     {children}
   </div>
