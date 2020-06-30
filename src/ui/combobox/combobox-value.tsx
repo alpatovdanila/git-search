@@ -1,5 +1,5 @@
 import cn from "classnames";
-import style from "@/ui/combobox/combobox.module.scss";
+import style from "./combobox.module.scss";
 import React from "react";
 
 type ComboboxValueProps = {

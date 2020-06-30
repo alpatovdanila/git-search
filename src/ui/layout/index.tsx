@@ -1,6 +1,6 @@
 import * as React from "react";
 import cn from "classnames";
-import styles from "@/ui/layout/layout.module.scss";
+import styles from "./layout.module.scss";
 
 export type FlexProps = {
   spacing?: 2 | 4 | 8 | 16 | 20 | 24 | 28 | 32 | 48;

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Circle } from "../icon";
-import { TextLabel } from "../text-label";
+
 import { FlexRow, FlexItem } from "../layout";
 import colors from "github-language-colors/colors.json";
 
@@ -12,12 +12,10 @@ type Props = {
 };
 
 export const Language = ({ languageAlias }: Props) => (
-  <FlexRow spacing={2} valignCenter>
+  <FlexRow spacing={4} valignCenter>
     <FlexItem>
-      <Circle size={18} fill={getLanguageColor(languageAlias)} />
+      <Circle color={getLanguageColor(languageAlias)} />
     </FlexItem>
-    <FlexItem>
-      <TextLabel>{languageAlias}</TextLabel>
-    </FlexItem>
+    <FlexItem>{languageAlias}</FlexItem>
   </FlexRow>
 );

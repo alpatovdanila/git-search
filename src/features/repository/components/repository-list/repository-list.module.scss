@@ -1,0 +1,7 @@
+.list{
+  & .item{
+    &:not(:last-of-type){
+      margin-bottom:16px;
+    }
+  }
+}

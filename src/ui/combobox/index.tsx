@@ -1,12 +1,12 @@
 import React, { useState, createRef, useEffect } from "react";
 import cn from "classnames";
 import { useClickAway } from "react-use";
-import { InputSize, InputText } from "@/ui/input-text";
+import { InputSize, InputText } from "@/ui/";
 import style from "./combobox.module.scss";
-import { ComboboxChevron } from "@/ui/combobox/combobox-chevron";
-import { ComboboxList } from "@/ui/combobox/combobox-list";
-import { ComboboxValue } from "@/ui/combobox/combobox-value";
-import { useFilteredOptions } from "@/ui/combobox/useFilteredOptions";
+import { ComboboxChevron } from "./combobox-chevron";
+import { ComboboxList } from "./combobox-list";
+import { ComboboxValue } from "./combobox-value";
+import { useFilteredOptions } from "./useFilteredOptions";
 
 export type ComboboxOption = {
   value: string | null;

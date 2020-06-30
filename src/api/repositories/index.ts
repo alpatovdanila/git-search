@@ -13,23 +13,28 @@ const normalizeRepositoriesSearch = (response: Response): Search => {
     const {
       id,
       html_url,
-      full_name,
+      name,
       description,
       forks,
       stargazers_count,
       license,
       language,
+      owner: { login: ownerName, url: ownerUrl },
     } = item;
 
     return {
       id,
-      name: full_name,
+      name,
       description,
       forks: forks,
       stars: stargazers_count,
       license,
       language,
       url: html_url,
+      author: {
+        name: ownerName,
+        url: ownerUrl,
+      },
     };
   });
 

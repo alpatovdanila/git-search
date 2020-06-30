@@ -1,6 +1,6 @@
 // Filter options
 import { useMemo } from "react";
-import { ComboboxOption, ComboboxOptions } from "@/ui/combobox/index";
+import { ComboboxOption, ComboboxOptions } from "@/ui/";
 
 export const useFilteredOptions = (
   options: ComboboxOptions,

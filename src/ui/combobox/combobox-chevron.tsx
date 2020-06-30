@@ -1,5 +1,5 @@
-import style from "@/ui/combobox/combobox.module.scss";
-import { ChevronDown, ChevronUp } from "@/ui/icon";
+import style from "./combobox.module.scss";
+import { ChevronDown, ChevronUp } from "@/ui/";
 import React from "react";
 
 type ChevronProps = {

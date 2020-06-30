@@ -1,9 +1,12 @@
-@import '../../styles/variables';
+@import '../../../../styles/variables';
 
 .repository{
-  display:block;
-  .url{
+display:block;
+  .heading{
+    font-size:300%;
+  }
 
+  .url{
     color:$color-gray;
   }
   .description{

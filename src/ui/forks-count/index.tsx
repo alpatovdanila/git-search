@@ -1,16 +1,15 @@
 import React from "react";
-
-import { StarOutline } from "../icon";
+import { Fork } from "../icon";
 
 import { FlexRow, FlexItem } from "../layout";
 
-export const StarsCount = ({ stars = 0 }) => {
+export const ForksCount = ({ forks }: { forks: number }) => {
   return (
     <FlexRow spacing={4} valignCenter>
       <FlexItem>
-        <StarOutline color="currentColor" />
+        <Fork color={"currentColor"} />
       </FlexItem>
-      <FlexItem>{stars}</FlexItem>
+      <FlexItem>{forks}</FlexItem>
     </FlexRow>
   );
 };

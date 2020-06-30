@@ -1,6 +1,7 @@
 import React from "react";
-import { FlexItem, FlexRow } from "@/ui/layout";
-import { TextLabel } from "@/ui/text-label";
+import { FlexItem, FlexRow, TextLabel } from "@/ui/";
+import { Link } from "@/ui/link";
+
 export const Footer = () => (
   <FlexRow spacing={16} alignCenter block>
     <FlexItem>
@@ -8,9 +9,7 @@ export const Footer = () => (
         🖐
       </span>
       <TextLabel>
-        <a href="//github.com/alpatovdanila/git-search" target="_blank">
-          Danila Alpatov
-        </a>
+        <Link href="//github.com/alpatovdanila/git-search">Danila Alpatov</Link>
       </TextLabel>
     </FlexItem>
   </FlexRow>

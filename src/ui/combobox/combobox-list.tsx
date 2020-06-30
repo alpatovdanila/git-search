@@ -1,7 +1,6 @@
-import { ComboboxOption, ComboboxOptions } from "@/ui/combobox/index";
+import { ComboboxOption, ComboboxOptions, List, ListItem } from "@/ui/";
 import React, { useEffect, useRef } from "react";
 import { FixedSizeList, ListChildComponentProps } from "react-window";
-import { List, ListItem } from "@/ui/list";
 
 type ComboboxListProps = {
   options: ComboboxOptions;
@@ -13,7 +12,7 @@ export const ComboboxList = ({
   onItemClick,
   focusedItemIndex,
 }: ComboboxListProps) => {
-  // Any due to lack of knowledge of how to type ref to react-window isntance
+  // <any> due to the lack of knowledge of how to type ref to react-window instance todo
   const listRef = useRef<any>();
 
   useEffect(() => {

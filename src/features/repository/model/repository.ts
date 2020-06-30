@@ -3,6 +3,10 @@ export type Repository = {
   description?: string;
   forks: number;
   stars: number;
+  author: {
+    name: string;
+    url: string;
+  };
   license?: {
     key: string;
     name: string;

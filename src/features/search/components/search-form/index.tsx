@@ -8,9 +8,7 @@ import {
 import styles from "./search-form.module.scss";
 import cn from "classnames";
 import { LanguageSelect } from "@/features/search/components/language-select";
-import { InputText } from "@/ui/input-text";
-import { FlexItem, FlexRow } from "@/ui/layout";
-import { Search } from "@/ui/icon";
+import { InputText, Search, FlexItem, FlexRow } from "@/ui/";
 
 export const SearchForm = ({ autoSubmitTimeout = 250 }) => {
   const languages = useStore($languages);
@@ -50,7 +48,7 @@ export const SearchForm = ({ autoSubmitTimeout = 250 }) => {
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
             autoFocus
-            placeholder={"Repository name, or keywords"}
+            placeholder={"Repository name or keywords"}
           />
         </FlexItem>
         <FlexItem>

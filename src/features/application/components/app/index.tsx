@@ -4,6 +4,9 @@ import { Router } from "@/features/application/components/router";
 import { Search } from "@/pages/search";
 import { Index } from "@/pages/index";
 import { RouteProps, Redirect } from "wouter";
+import { useStore } from "effector-react";
+import { $transport } from "@/features/application/model/transport";
+import { Animation, HalfCircle } from "@/ui";
 
 const appRoutes: RouteProps[] = [
   {
@@ -21,6 +24,17 @@ const appRoutes: RouteProps[] = [
 ];
 
 export const App = () => {
+  const transport = useStore($transport);
+
   useEffect(() => applicationStarted(), []);
-  return <Router routes={appRoutes} />;
+  return (
+    <>
+      {transport.fetching && (
+        <Animation type={"rotate"} infinite>
+          <HalfCircle />
+        </Animation>
+      )}
+      <Router routes={appRoutes} />;
+    </>
+  );
 };

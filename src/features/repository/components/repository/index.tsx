@@ -1,22 +1,25 @@
 import React from "react";
 import styles from "./repository.module.scss";
-import { StarsCount } from "../stars-count";
-import { ForksCount } from "../forks-count";
-import { Language } from "../language";
-import { FlexRow, FlexItem } from "../layout";
+
+import { FlexRow, FlexItem, Language, ForksCount, StarsCount } from "@/ui";
+
 import { Repository as RepositoryType } from "@/features/repository/model/repository";
+import { Link } from "@/ui/link";
 
 type Props = {
   repository: RepositoryType;
 };
 
 export const Repository = ({ repository }: Props) => {
-  const { name, description, language, stars, forks } = repository;
+  const { url, name, description, language, stars, forks, author } = repository;
+
   return (
     <div className={styles.repository}>
       <FlexRow col spacing={16}>
         <FlexItem>
-          <div className={styles.url}>{name}</div>
+          <Link className={styles.heading} href={url}>
+            {name}
+          </Link>
         </FlexItem>
 
         {repository.description && (
@@ -27,6 +30,9 @@ export const Repository = ({ repository }: Props) => {
 
         <FlexItem>
           <FlexRow spacing={16} valignCenter>
+            <FlexItem>
+              <Link href={author.url}>{author.name}</Link>
+            </FlexItem>
             {language && (
               <FlexItem>
                 <Language languageAlias={language} />

@@ -5,12 +5,12 @@
 }
 
 .listItem {
-  height: 28px;
+  height: 30px;
   display: flex;
   align-items: center;
-  padding: 2px 8px;
+  padding: 2px 12px;
   cursor:pointer;
-
+  
   &:hover, &.hover {
     background: $color-list;
     color: white;
