@@ -3,13 +3,21 @@
 
 .combobox {
   @extend %input;
-  width: 200px;
+  min-width:200px;
   position: relative;
   display:inline-flex;
   vertical-align: middle;
   align-items:center;
 
+  &.block{
+    display:flex;
+    width:100%;
+  }
+
   & .value{
+    white-space:nowrap;
+    overflow:hidden;
+    margin-right:16px;
     flex:1 100%;
     cursor: text;
     height:100%;

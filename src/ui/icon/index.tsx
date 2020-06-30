@@ -1,36 +1,54 @@
 import React from "react";
 import styles from "./icon.module.scss";
-import cn from "classnames";
 import { ReactComponent as SearchSvg } from "./search.svg";
 import { ReactComponent as StarSvg } from "./star.svg";
 import { ReactComponent as ForkSvg } from "./git-branch.svg";
 import { ReactComponent as CircleSvg } from "./circle.svg";
-import { ReactComponent as TailSpinSvg } from "./tail_spin.svg";
 import { ReactComponent as ChevronDownSvg } from "./chevron-down.svg";
 import { ReactComponent as ChevronUpSvg } from "./chevron-up.svg";
+import { ReactComponent as HalfCircleSvg } from "./half-circle.svg";
 
-type Props = {
+type IconProps = React.SVGAttributes<SVGSVGElement> & {
   size?: number;
-  fill?: string;
-  spin?: boolean;
-} & React.SVGAttributes<SVGSVGElement>;
+  color?: string;
+};
 
-export const asIcon = (
+type StrokedIconProps = IconProps & { strokeWidth?: number };
+
+export const asStrokedIcon = (
   Component: React.FunctionComponent<React.SVGProps<SVGSVGElement>>
-) => ({ size = 24, fill = "currentColor", spin = false, ...rest }: Props) => (
+) => ({
+  size = 24,
+  color = "currentColor",
+  strokeWidth = 2,
+  ...rest
+}: StrokedIconProps) => (
   <Component
     width={size}
     height={size}
-    fill={fill}
-    className={cn(styles.icon, { [styles.spin]: spin })}
+    stroke={color}
+    strokeWidth={strokeWidth}
+    className={styles.icon}
     {...rest}
   />
 );
 
-export const ChevronDown = asIcon(ChevronDownSvg);
-export const ChevronUp = asIcon(ChevronUpSvg);
-export const Search = asIcon(SearchSvg);
-export const TalSpin = asIcon(TailSpinSvg);
-export const StarOutline = asIcon(StarSvg);
-export const Fork = asIcon(ForkSvg);
-export const Circle = asIcon(CircleSvg);
+export const asFilledIcon = (
+  Component: React.FunctionComponent<React.SVGProps<SVGSVGElement>>
+) => ({ size = 24, color = "currentColor", ...rest }: IconProps) => (
+  <Component
+    width={size}
+    height={size}
+    fill={color}
+    className={styles.icon}
+    {...rest}
+  />
+);
+
+export const ChevronDown = asStrokedIcon(ChevronDownSvg);
+export const ChevronUp = asStrokedIcon(ChevronUpSvg);
+export const Search = asStrokedIcon(SearchSvg);
+export const StarOutline = asStrokedIcon(StarSvg);
+export const Fork = asStrokedIcon(ForkSvg);
+export const Circle = asStrokedIcon(CircleSvg);
+export const HalfCircle = asStrokedIcon(HalfCircleSvg);

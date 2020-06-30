@@ -32,7 +32,7 @@ export const SearchForm = ({ autoSubmitTimeout = 250 }) => {
 
   return (
     <div className={cns}>
-      <FlexRow block valignCenter>
+      <FlexRow block valignCenter spacing={8}>
         <FlexItem>
           <div className={styles.icon}>
             <Search />

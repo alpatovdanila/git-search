@@ -1,5 +1,5 @@
 import React from "react";
 import { ReactComponent as LogoSvg } from "./git_search.svg";
-import { asIcon } from "@/ui/icon";
+import { asFilledIcon } from "@/ui/icon";
 
-export const Logo = asIcon(LogoSvg);
+export const Logo = asFilledIcon(LogoSvg);

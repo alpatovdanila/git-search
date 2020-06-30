@@ -26,7 +26,7 @@ export const LanguageSelect = ({
       options={languageOptions}
       value={activeLanguage}
       onChange={onChange}
-      emptyItem={"Any language"}
+      placeholder={"Specify language"}
       size={"xl"}
       transparent
       block
