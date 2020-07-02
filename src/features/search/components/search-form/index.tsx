@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useMemo } from "react";
 import { useStore } from "effector-react";
 import { $languages } from "@/features/application/model/languages";
 import styles from "./search-form.module.scss";
@@ -29,11 +29,20 @@ export const SearchForm = ({
   const [language, setLanguage] = useState(initialLanguage);
   const [query, setQuery] = useState(initialQuery);
   const [focused, setFocused] = useState(false);
+
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const changed = useMemo(()=>{
+    return (language !== initialLanguage) || (query!==initialQuery);
+  }, [language, initialLanguage,query, initialQuery]);
+
+
+
   useEffect(() => {
-    !!query.trim() && onSubmit({ language, query: query.trim() });
-  }, [language, query.trim()]);
+    !!query.trim() && changed && onSubmit({ language, query: query.trim() });
+  }, [language, query.trim(), changed]);
+
+
 
   useEffect(() => {
     setQuery(initialQuery);

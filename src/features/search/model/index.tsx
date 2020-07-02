@@ -5,7 +5,7 @@ import {
   forward,
   createEffect,
   guard,
-} from "effector";
+} from "effector-logger";
 import {
   $searchParameters,
   refillFromURL,
@@ -19,6 +19,7 @@ import { createLocationSearch } from "@/lib/locationSearch";
 
 const $pageMounted = createStore(false);
 export const pageMounted = createEvent();
+export const pageUnmounted = createEvent();
 $pageMounted.on(pageMounted, () => true);
 
 //Propagate parameters changes to URL
@@ -35,7 +36,7 @@ forward({
   }),
 });
 
-//Fill parameters from url on page mount
+
 forward({
   from: pageMounted,
   to: refillFromURL,
@@ -51,6 +52,6 @@ export const $search = combine({
   parameters: $searchParameters,
   results: $searchResults,
   pageMounted: $pageMounted,
-});
+}).reset(pageUnmounted);
 
-$search.watch(console.log);
+

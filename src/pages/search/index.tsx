@@ -7,14 +7,19 @@ import { RepositoryList } from "@/features/repository/components/repository-list
 import { Link } from "@/ui/link";
 import { Paginator } from "@/ui/paginator";
 import { searchParametersUpdated } from "@/features/search/model/searchParameters";
-import { $search, pageMounted } from "@/features/search/model";
+import {$search, pageMounted, pageUnmounted} from "@/features/search/model";
 
 export const Search = () => {
   const search = useStore($search);
 
-  useEffect(() => pageMounted(), []);
+  useEffect(() =>{
+    pageMounted();
+    return ()=>pageUnmounted();
+  }, []);
 
   const handlePageChange = (page: number) => searchParametersUpdated({ page });
+  const handleSubmit = (params:{query:string, language:string|null}) => searchParametersUpdated({ ...params, page: 1 })
+
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -37,9 +42,7 @@ export const Search = () => {
             <FlexItem block>
               <SearchForm
                 autoSubmitTimeout={350}
-                onSubmit={(params) =>
-                  searchParametersUpdated({ ...params, page: 1 })
-                }
+                onSubmit={handleSubmit}
                 query={search.parameters.query}
                 language={search.parameters.language}
               />

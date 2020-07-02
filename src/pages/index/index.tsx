@@ -4,6 +4,7 @@ import { FlexItem, FlexCol, Logo } from "@/ui/";
 
 import { IndexTemplate } from "@/templates/index";
 import { searchParametersUpdated } from "@/features/search/model/searchParameters";
+import {createLocationSearch} from "@/lib/locationSearch";
 
 export const Index = () => {
   return (
@@ -17,7 +18,7 @@ export const Index = () => {
             query={""}
             autoSubmitTimeout={500}
             language={null}
-            onSubmit={searchParametersUpdated}
+            onSubmit={(data : {query:string, language:string|null}) => window.history.pushState({}, '', '/search/?'+createLocationSearch(data))}
           />
         </FlexItem>
       </FlexCol>
