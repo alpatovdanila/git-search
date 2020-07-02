@@ -41,7 +41,8 @@ const normalizeRepositoriesSearch = (response: Response): Search => {
   return {
     items,
     totalCount: response.total_count,
-    incomplete_results: response.incomplete_results,
+    incomplete: response.incomplete_results,
+    timestamp: Date.now(),
   };
 };
 
@@ -58,6 +59,6 @@ export const getSearchRepositories = ({
     order,
     sort,
     page,
-    perPage,
+    per_page: perPage,
   }).then(normalizeRepositoriesSearch);
 };

@@ -42,7 +42,7 @@ $searchParameters.on(searchParametersUpdated, (state, parameters) => ({
   ...parameters,
 }));
 
-const propagateToURLFx = createEffect({
+const updateUrlFx = createEffect({
   handler: (parameters: SearchParameters) => {
     window.history.pushState(
       {},
@@ -52,4 +52,4 @@ const propagateToURLFx = createEffect({
   },
 });
 
-forward({ from: $searchParameters, to: propagateToURLFx });
+forward({ from: $searchParameters, to: updateUrlFx });

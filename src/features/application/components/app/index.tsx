@@ -27,14 +27,17 @@ export const App = () => {
   const transport = useStore($transport);
 
   useEffect(() => applicationStarted(), []);
+
   return (
     <>
       {transport.fetching && (
-        <Animation type={"rotate"} infinite>
-          <HalfCircle />
-        </Animation>
+        <div style={{ position: "fixed", top: 0, left: 0 }}>
+          <Animation type={"rotate"} infinite>
+            <HalfCircle />
+          </Animation>
+        </div>
       )}
-      <Router routes={appRoutes} />;
+      <Router routes={appRoutes} />
     </>
   );
 };

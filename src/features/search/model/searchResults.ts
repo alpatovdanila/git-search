@@ -9,23 +9,25 @@ import { Repository } from "@/features/repository/model/repository";
 export type Search = {
   totalCount: number;
   items: Repository[];
-  incomplete_results: boolean;
+  incomplete: boolean;
+  timestamp: number | null;
 };
 
-export const $searchResult = createStore<Search>({
+export const $searchResults = createStore<Search>({
   totalCount: 0,
   items: [],
-  incomplete_results: false,
+  incomplete: false,
+  timestamp: null,
 });
 
-export const invalidateResults = createEffect({
-  handler: async (params: SearchParameters) => getSearchRepositories(params),
+export const fetchResultsFx = createEffect({
+  handler: (params: SearchParameters) => getSearchRepositories(params),
 });
 
-$searchResult.on(invalidateResults.done, (state, { result }) => result);
+$searchResults.on(fetchResultsFx.done, (state, { result }) => result);
 
 guard({
   source: $searchParameters,
-  target: invalidateResults,
-  filter: (params) => !!params.query,
+  filter: (params) => !!params.query && !!params.query.trim(),
+  target: fetchResultsFx,
 });

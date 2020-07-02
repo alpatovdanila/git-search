@@ -19,11 +19,13 @@ export const SearchForm = ({ autoSubmitTimeout = 250 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    const newParams = {
-      language: searchParams.query ? language : undefined,
-      query: query && query.trim() ? query : undefined,
-    };
-    query && query.trim() && searchParametersUpdated(newParams);
+    if (!!query) {
+      searchParametersUpdated({
+        language,
+        query,
+        page: 1,
+      });
+    }
   }, [language, query]);
 
   const cns = cn(styles.searchForm, { [styles.focused]: focused });
