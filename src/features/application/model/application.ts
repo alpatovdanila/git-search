@@ -1,6 +1,6 @@
 import { createEffect, createEvent, createStore, forward } from "effector";
-import { fetchEmojisFx } from "@/features/search/model/emojis";
-import { fetchLanguagesFx } from "@/features/search/model/languages";
+import { fetchEmojisFx } from "@/features/application/model/emojis";
+import { fetchLanguagesFx } from "@/features/application/model/languages";
 
 export type Application = {
   ready: boolean;
@@ -13,12 +13,11 @@ export const $application = createStore<Application>({
 });
 
 export const applicationStarted = createEvent();
+$application.on(applicationStarted, (state) => ({ ...state, started: true }));
 
-export const preloadAppFx = createEffect().use(() =>
+const preloadAppFx = createEffect().use(() =>
   Promise.all([fetchLanguagesFx(), fetchEmojisFx()])
 );
-
-$application.on(applicationStarted, (state) => ({ ...state, started: true }));
 $application.on(preloadAppFx.done, (state) => ({ ...state, ready: true }));
 
 forward({

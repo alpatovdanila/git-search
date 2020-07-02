@@ -3,6 +3,7 @@ import { SearchForm } from "@/features/search/components/search-form";
 import { FlexItem, FlexCol, Logo } from "@/ui/";
 
 import { IndexTemplate } from "@/templates/index";
+import { searchParametersUpdated } from "@/features/search/model/searchParameters";
 
 export const Index = () => {
   return (
@@ -12,7 +13,12 @@ export const Index = () => {
           <Logo />
         </FlexItem>
         <FlexItem block>
-          <SearchForm autoSubmitTimeout={500} />
+          <SearchForm
+            query={""}
+            autoSubmitTimeout={500}
+            language={null}
+            onSubmit={searchParametersUpdated}
+          />
         </FlexItem>
       </FlexCol>
     </IndexTemplate>

@@ -1,5 +1,5 @@
 import { get } from "../client";
-import { Language, Languages } from "@/features/search/model/languages";
+import { Language, Languages } from "@/features/application/model/languages";
 
 type Response = { [key: string]: Language };
 

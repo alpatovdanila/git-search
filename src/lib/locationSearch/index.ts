@@ -13,7 +13,9 @@ export const createLocationSearch = (
     : params.toString();
 };
 
-export const getLocationSearchParams = (url: string): Object => {
+export const getLocationSearchParams = (
+  url: string
+): { [key: string]: string } => {
   const extracted = {};
   const searchParams = new URLSearchParams(url);
 

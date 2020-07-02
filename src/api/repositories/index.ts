@@ -1,5 +1,5 @@
 import { get } from "@/api/client";
-import type { Search } from "@/features/search/model/searchResults";
+import type { SearchResults } from "@/features/search/model/searchResults";
 import { SearchParameters } from "@/features/search/model/searchParameters";
 
 type Response = {
@@ -8,7 +8,7 @@ type Response = {
   incomplete_results: boolean;
 };
 
-const normalizeRepositoriesSearch = (response: Response): Search => {
+const normalizeRepositoriesSearch = (response: Response): SearchResults => {
   const items = response.items.map((item) => {
     const {
       id,
@@ -53,7 +53,7 @@ export const getSearchRepositories = ({
   sort = null,
   page = 1,
   perPage,
-}: SearchParameters): Promise<Search> => {
+}: SearchParameters): Promise<SearchResults> => {
   return get<Response>("/search/repositories", {
     q: language ? `${query}+language:${language}` : query,
     order,

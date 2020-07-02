@@ -1,9 +1,7 @@
-import { createStore, createEvent } from "effector";
+import { createStore, createEvent, combine } from "effector";
+import { requestFx } from "@/api/client";
 
-export type Transport = {
-  fetching: boolean;
-  errors: string[];
-};
+const $errors = createStore<string[]>([]);
 
 export const errorHappened = createEvent<string>();
 
@@ -11,19 +9,11 @@ export const exceptionThrown = errorHappened.prepend(
   (error: Error) => error.message
 );
 
-export const fetchingStatusChanged = createEvent<boolean>();
+$errors.on(errorHappened, (state, error) => [...state, error]);
 
-export const $transport = createStore<Transport>({
-  fetching: false,
-  errors: [],
+requestFx.fail.watch((payload) => exceptionThrown(payload.error));
+
+export const $transport = combine({
+  fetching: requestFx.inFlight,
+  errors: $errors,
 });
-
-$transport
-  .on(errorHappened, (state, error) => ({
-    ...state,
-    errors: [...state.errors, error],
-  }))
-  .on(fetchingStatusChanged, (state, status) => ({
-    ...state,
-    fetching: status,
-  }));

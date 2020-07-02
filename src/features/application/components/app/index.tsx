@@ -30,7 +30,9 @@ export const App = () => {
 
   return (
     <>
-      {transport.fetching && (
+      {transport.errors.map((error) => error)}
+      {transport.fetching}
+      {transport.fetching > 0 && (
         <div style={{ position: "fixed", top: 0, left: 0 }}>
           <Animation type={"rotate"} infinite>
             <HalfCircle />

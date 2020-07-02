@@ -41,6 +41,10 @@ const InputComponent = (
     return () => clearTimeout(t);
   }, [debouncedValue]);
 
+  useEffect(() => {
+    setDebouncedValue(value);
+  }, [value]);
+
   const cns = cn(styles.input, {
     [styles.transparent]: transparent,
     [styles.block]: block,
