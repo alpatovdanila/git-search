@@ -37,7 +37,9 @@ export const Search = () => {
             <FlexItem block>
               <SearchForm
                 autoSubmitTimeout={350}
-                onSubmit={searchParametersUpdated}
+                onSubmit={(params) =>
+                  searchParametersUpdated({ ...params, page: 1 })
+                }
                 query={search.parameters.query}
                 language={search.parameters.language}
               />

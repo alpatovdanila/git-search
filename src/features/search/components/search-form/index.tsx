@@ -31,14 +31,9 @@ export const SearchForm = ({
   const [focused, setFocused] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // useEffect(() => {
-  //   onSubmit({ language, query: query.trim() });
-  // }, [language, query.trim()]);
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && !!query.trim())
-      onSubmit({ language, query: query.trim() });
-  };
+  useEffect(() => {
+    !!query.trim() && onSubmit({ language, query: query.trim() });
+  }, [language, query.trim()]);
 
   useEffect(() => {
     setQuery(initialQuery);
@@ -62,15 +57,12 @@ export const SearchForm = ({
             transparent
             block
             value={query}
-            onChange={(e: React.KeyboardEvent<HTMLInputElement>) =>
-              setQuery(e.currentTarget.value)
-            }
+            onDebouncedChange={setQuery}
             debounceChangeTimeout={autoSubmitTimeout}
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
             autoFocus
             placeholder={"Repository name or keywords"}
-            onKeyDown={handleKeyDown}
           />
         </FlexItem>
         <FlexItem>
