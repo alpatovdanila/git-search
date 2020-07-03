@@ -1,6 +1,6 @@
-import { createStore, createEvent } from "effector";
-
+import { createStore, createEvent, createEffect, forward } from "effector";
 import { getLocationSearchParams } from "@/lib/locationSearch";
+import { pageMounted } from "@/features/search/model/index";
 
 export type Order = "desc" | "asc";
 
@@ -31,18 +31,27 @@ export const $searchParameters = createStore<SearchParameters>({
 
 export const searchParametersUpdated = createEvent<Partial<SearchParameters>>();
 
-export const refillFromURL = searchParametersUpdated.prepend(() => {
-  const params = getLocationSearchParams(window.location.search);
-  return {
-    query: params.query || "",
-    language: params.language || null,
-    order: (params.order as Order) || null,
-    sort: (params.sort as Sort) || null,
-    page: params.page ? +params.page : 0,
-  };
+export const refillFromUrlFx = createEffect({
+  handler: async () => {
+    const params = getLocationSearchParams(window.location.search);
+    return {
+      query: params.query || "",
+      language: params.language || null,
+      order: (params.order as Order) || null,
+      sort: (params.sort as Sort) || null,
+      page: params.page ? +params.page : 0,
+    };
+  },
 });
 
-$searchParameters.on(searchParametersUpdated, (state, parameters) => ({
-  ...state,
-  ...parameters,
-}));
+window.addEventListener("popstate", () => refillFromUrlFx());
+
+$searchParameters.on(
+  [searchParametersUpdated, refillFromUrlFx.doneData],
+  (state, parameters) => {
+    return {
+      ...state,
+      ...parameters,
+    };
+  }
+);

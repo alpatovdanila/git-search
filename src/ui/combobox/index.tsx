@@ -83,6 +83,7 @@ export const Combobox = ({
             ref={inputRef}
             size={size}
             onKeyDown={handleInputKeyDown}
+            onBlur={deactivate}
             block
             transparent
           />

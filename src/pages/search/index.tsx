@@ -2,18 +2,12 @@ import React, { useEffect } from "react";
 import { SearchForm } from "@/features/search/components/search-form";
 import { useStore } from "effector-react";
 import { InternalTemplate } from "@/templates/internal";
-import {
-  FlexItem,
-  FlexRow,
-  CompactLogo,
-  FlexCol,
-  Link,
-  Paginator,
-} from "@/ui/";
+import { FlexItem, FlexRow, CompactLogo, FlexCol } from "@/ui/";
 import { RepositoryList } from "@/features/repository/components/repository-list";
-
+import { Link } from "@/ui/link";
+import { Paginator } from "@/ui/paginator";
 import { searchParametersUpdated } from "@/features/search/model/searchParameters";
-import { $search, pageMounted } from "@/features/search/model";
+import { $search, pageMounted, pageUnmounted } from "@/features/search/model";
 import { pageMetaUpdated } from "@/app/model/pageMeta";
 import { searchPageMeta } from "@/pages/meta";
 
@@ -21,20 +15,29 @@ export const Search = () => {
   const search = useStore($search);
 
   useEffect(() => {
-    pageMetaUpdated(searchPageMeta(search.parameters.query));
+    pageMounted();
+    return () => pageUnmounted();
   }, []);
 
-  useEffect(() => pageMounted(), []);
+  const handlePageChange = (page: number) => {
+    searchParametersUpdated({ page });
+  };
 
-  const handlePageChange = (page: number) => searchParametersUpdated({ page });
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [search.results.timestamp]);
+  const handleSubmit = (params: { query: string; language: string | null }) => {
+    searchParametersUpdated({ ...params, page: 1 });
+  };
 
   const pagesTotal = Math.round(
     Math.min(search.results.totalCount, 1000) / search.parameters.perPage
   );
+
+  useEffect(() => {
+    pageMetaUpdated(searchPageMeta(search.parameters.query));
+  }, [search.parameters.query]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [search.results.timestamp]);
 
   return (
     <InternalTemplate>
@@ -48,10 +51,8 @@ export const Search = () => {
             </FlexItem>
             <FlexItem block>
               <SearchForm
-                autoSubmitTimeout={350}
-                onSubmit={(params) =>
-                  searchParametersUpdated({ ...params, page: 1 })
-                }
+                autoSubmitTimeout={250}
+                onSubmit={handleSubmit}
                 query={search.parameters.query}
                 language={search.parameters.language}
               />

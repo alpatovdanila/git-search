@@ -1,16 +1,27 @@
 import React, { useEffect } from "react";
 import { SearchForm } from "@/features/search/components/search-form";
 import { FlexItem, FlexCol, Logo } from "@/ui/";
+
 import { IndexTemplate } from "@/templates/index";
 
+import { createLocationSearch } from "@/lib/locationSearch";
 import { pageMetaUpdated } from "@/app/model/pageMeta";
 import { indexPageMeta } from "@/pages/meta";
-import { createLocationSearch } from "@/lib/locationSearch";
+import { useLocation } from "wouter";
 
 export const Index = () => {
   useEffect(() => {
     pageMetaUpdated(indexPageMeta());
   }, []);
+
+  const [_, setLocation] = useLocation();
+
+  const handleFormSubmit = (data: {
+    query: string;
+    language: string | null;
+  }) => {
+    setLocation("/search/?" + createLocationSearch(data));
+  };
 
   return (
     <IndexTemplate>
@@ -23,13 +34,7 @@ export const Index = () => {
             query={""}
             autoSubmitTimeout={500}
             language={null}
-            onSubmit={(data: { query: string; language: string | null }) =>
-              window.history.pushState(
-                {},
-                "",
-                "/search/?" + createLocationSearch(data)
-              )
-            }
+            onSubmit={handleFormSubmit}
           />
         </FlexItem>
       </FlexCol>

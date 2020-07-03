@@ -8,6 +8,7 @@ import { appRoutes } from "@/app/components/app/routes";
 
 export const App = () => {
   const transport = useStore($transport);
+
   useEffect(() => applicationStarted(), []);
 
   return (

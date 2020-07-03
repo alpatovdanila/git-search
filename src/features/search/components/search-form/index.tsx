@@ -1,10 +1,10 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useMemo } from "react";
 import { useStore } from "effector-react";
 import { $languages } from "@/app/model/languages";
 import styles from "./search-form.module.scss";
 import cn from "classnames";
 import { LanguageSelect } from "@/features/search/components/language-select";
-import { FlexItem, FlexRow, InputText, Search } from "@/ui/";
+import { InputText, Search, FlexItem, FlexRow } from "@/ui/";
 
 type Props = {
   autoSubmitTimeout: number;
@@ -29,24 +29,24 @@ export const SearchForm = ({
   const [language, setLanguage] = useState(initialLanguage);
   const [query, setQuery] = useState(initialQuery);
   const [focused, setFocused] = useState(false);
+
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(e.currentTarget.value.trim());
-  };
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setQuery(e.currentTarget.value);
+
+  useEffect(() => {
+    const t = setTimeout(() => {
+      const changed = language !== initialLanguage || query !== initialQuery;
+      query && changed && onSubmit({ language, query });
+    }, autoSubmitTimeout);
+    return () => clearTimeout(t);
+  }, [language, query]);
 
   useEffect(() => {
     setQuery(initialQuery);
     setLanguage(initialLanguage);
   }, [initialQuery, initialLanguage]);
-
-  // Debounced auto-submit
-  useEffect(() => {
-    const t = setTimeout(() => {
-      if (query) onSubmit({ language, query });
-    }, autoSubmitTimeout);
-    return () => clearTimeout(t);
-  }, [autoSubmitTimeout, query, language]);
 
   const cns = cn(styles.searchForm, { [styles.focused]: focused });
 
@@ -60,16 +60,16 @@ export const SearchForm = ({
         </FlexItem>
         <FlexItem block>
           <InputText
+            ref={inputRef}
+            size={"xl"}
+            transparent
+            block
             value={query}
             onChange={handleInputChange}
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
-            placeholder={"Repository name or keywords"}
-            size={"xl"}
-            ref={inputRef}
-            transparent
             autoFocus
-            block
+            placeholder={"Repository name or keywords"}
           />
         </FlexItem>
         <FlexItem>

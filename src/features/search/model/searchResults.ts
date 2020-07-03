@@ -1,4 +1,4 @@
-import { createEffect, createEvent, createStore } from "effector";
+import { createEffect, createStore } from "effector";
 
 import { Repository } from "@/features/repository/model/repository";
 import { SearchParameters } from "@/features/search/model/searchParameters";

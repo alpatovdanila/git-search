@@ -2,45 +2,57 @@ import {
   combine,
   createStore,
   createEvent,
-  forward,
   createEffect,
   guard,
+  sample,
+  forward,
 } from "effector";
+
+import appConfig from "@/config";
+
 import {
   $searchParameters,
-  refillFromURL,
+  refillFromUrlFx,
   SearchParameters,
+  searchParametersUpdated,
 } from "@/features/search/model/searchParameters";
+
 import {
   $searchResults,
   invalidateResultsFx,
 } from "@/features/search/model/searchResults";
+
 import { createLocationSearch } from "@/lib/locationSearch";
 
-const $pageMounted = createStore(false);
+export const $pageMounted = createStore(false);
 export const pageMounted = createEvent();
+export const pageUnmounted = createEvent();
 $pageMounted.on(pageMounted, () => true);
 
-//Propagate parameters changes to URL
-forward({
-  from: $searchParameters,
-  to: createEffect({
+// Propagate changes in parameters to URL
+guard({
+  source: sample({
+    source: $searchParameters,
+    clock: searchParametersUpdated,
+  }),
+  filter: $pageMounted,
+  target: createEffect({
     handler: (parameters: SearchParameters) => {
       window.history.pushState(
         {},
         "",
-        "/search/?" + createLocationSearch(parameters)
+        `${appConfig.appBase}/search/?` + createLocationSearch(parameters)
       );
     },
   }),
 });
 
-//Fill parameters from url on page mount
 forward({
   from: pageMounted,
-  to: refillFromURL,
+  to: refillFromUrlFx,
 });
 
+// When parameters changing, invalidate search results
 guard({
   source: $searchParameters,
   filter: $pageMounted,
@@ -51,6 +63,4 @@ export const $search = combine({
   parameters: $searchParameters,
   results: $searchResults,
   pageMounted: $pageMounted,
-});
-
-$search.watch(console.log);
+}).reset(pageUnmounted);

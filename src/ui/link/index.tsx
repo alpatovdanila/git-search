@@ -1,6 +1,8 @@
 import React from "react";
 import style from "./link.module.scss";
 import cn from "classnames";
+import { useLocation } from "wouter";
+
 export const Link = ({
   children,
   className,
@@ -8,10 +10,11 @@ export const Link = ({
   onClick,
   ...rest
 }: React.LinkHTMLAttributes<HTMLAnchorElement> & { to?: string }) => {
+  const [_, setLocation] = useLocation();
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (to) {
       e.preventDefault();
-      window.history.pushState({}, "", to);
+      setLocation(to);
     } else {
       onClick && onClick(e);
     }
