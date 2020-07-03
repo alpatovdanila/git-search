@@ -1,6 +1,6 @@
 import { createEffect, createEvent, createStore, forward } from "effector";
-import { fetchEmojisFx } from "@/features/application/model/emojis";
-import { fetchLanguagesFx } from "@/features/application/model/languages";
+import { fetchEmojisFx } from "@/app/model/emojis";
+import { fetchLanguagesFx } from "@/app/model/languages";
 
 export type Application = {
   ready: boolean;

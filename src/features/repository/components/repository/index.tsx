@@ -1,10 +1,14 @@
 import React from "react";
 import styles from "./repository.module.scss";
-
-import { FlexRow, FlexItem, Language, ForksCount, StarsCount } from "@/ui";
-
+import {
+  FlexRow,
+  FlexItem,
+  Language,
+  ForksCount,
+  StarsCount,
+  Link,
+} from "@/ui/";
 import { Repository as RepositoryType } from "@/features/repository/model/repository";
-import { Link } from "@/ui/link";
 
 type Props = {
   repository: RepositoryType;

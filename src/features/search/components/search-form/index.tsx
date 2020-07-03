@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useStore } from "effector-react";
-import { $languages } from "@/features/application/model/languages";
+import { $languages } from "@/app/model/languages";
 import styles from "./search-form.module.scss";
 import cn from "classnames";
 import { LanguageSelect } from "@/features/search/components/language-select";
-import { InputText, Search, FlexItem, FlexRow } from "@/ui/";
+import { FlexItem, FlexRow, InputText, Search } from "@/ui/";
 
 type Props = {
   autoSubmitTimeout: number;
@@ -31,14 +31,22 @@ export const SearchForm = ({
   const [focused, setFocused] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    !!query.trim() && onSubmit({ language, query: query.trim() });
-  }, [language, query.trim()]);
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.currentTarget.value.trim());
+  };
 
   useEffect(() => {
     setQuery(initialQuery);
     setLanguage(initialLanguage);
   }, [initialQuery, initialLanguage]);
+
+  // Debounced auto-submit
+  useEffect(() => {
+    const t = setTimeout(() => {
+      if (query) onSubmit({ language, query });
+    }, autoSubmitTimeout);
+    return () => clearTimeout(t);
+  }, [autoSubmitTimeout, query, language]);
 
   const cns = cn(styles.searchForm, { [styles.focused]: focused });
 
@@ -52,17 +60,16 @@ export const SearchForm = ({
         </FlexItem>
         <FlexItem block>
           <InputText
-            ref={inputRef}
-            size={"xl"}
-            transparent
-            block
             value={query}
-            onDebouncedChange={setQuery}
-            debounceChangeTimeout={autoSubmitTimeout}
+            onChange={handleInputChange}
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
-            autoFocus
             placeholder={"Repository name or keywords"}
+            size={"xl"}
+            ref={inputRef}
+            transparent
+            autoFocus
+            block
           />
         </FlexItem>
         <FlexItem>

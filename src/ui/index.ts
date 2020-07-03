@@ -10,3 +10,5 @@ export * from "./logo";
 export * from "../features/repository/components/repository";
 export * from "./stars-count";
 export * from "./text-label";
+export * from "./link";
+export * from "./paginator";

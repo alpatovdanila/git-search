@@ -6,8 +6,8 @@ type Props = {
   routes: RouteProps[];
 };
 
-const RouterComponent = ({ routes }: Props) => (
-  <>
+const RouterComponent = ({ routes }: Props) => {
+  return (
     <Switch>
       {routes.map((route, key) => (
         <Route key={key} path={route.path} component={route.component}>
@@ -15,7 +15,6 @@ const RouterComponent = ({ routes }: Props) => (
         </Route>
       ))}
     </Switch>
-  </>
-);
-
-export const Router = RouterComponent; //React.memo(RouterComponent);
+  );
+};
+export const Router = RouterComponent;

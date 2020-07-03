@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
-import { Link } from "@/ui/link";
-import { FlexItem, FlexRow } from "@/ui";
+
+import { FlexItem, FlexRow, Link } from "@/ui/";
 
 type Props = {
   pagesCount: number;

@@ -10,6 +10,8 @@ export const $pageMeta = createStore<PageMeta>({
 
 export const pageMetaUpdated = createEvent<Partial<PageMeta>>();
 
+$pageMeta.on(pageMetaUpdated, (state, meta) => ({ ...state, ...meta }));
+
 const updatePageMetaFx = createEffect({
   handler: (meta: PageMeta) => {
     const titleEl = document.querySelector("title");

@@ -1,6 +1,5 @@
 import React from "react";
-import { FlexItem, FlexRow, TextLabel } from "@/ui/";
-import { Link } from "@/ui/link";
+import { FlexItem, FlexRow, TextLabel, Link } from "@/ui/";
 
 export const Footer = () => (
   <FlexRow spacing={16} alignCenter block>

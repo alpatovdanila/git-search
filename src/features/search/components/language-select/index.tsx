@@ -1,5 +1,5 @@
 import React from "react";
-import { Languages } from "@/features/application/model/languages";
+import { Languages } from "@/app/model/languages";
 import { Combobox } from "@/ui/";
 
 type Props = {

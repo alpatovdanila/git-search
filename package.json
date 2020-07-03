@@ -1,7 +1,9 @@
 {
   "name": "react",
   "version": "1.0.0",
-  "description": "React example starter project",
+  "description": "Git Search Pet Project",
+  "private": true,
+  "homepage": "//alpatovdanila.github.io/git-search",
   "keywords": [
     "react",
     "starter"

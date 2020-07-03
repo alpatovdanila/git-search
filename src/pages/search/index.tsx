@@ -2,15 +2,27 @@ import React, { useEffect } from "react";
 import { SearchForm } from "@/features/search/components/search-form";
 import { useStore } from "effector-react";
 import { InternalTemplate } from "@/templates/internal";
-import { FlexItem, FlexRow, CompactLogo, FlexCol } from "@/ui/";
+import {
+  FlexItem,
+  FlexRow,
+  CompactLogo,
+  FlexCol,
+  Link,
+  Paginator,
+} from "@/ui/";
 import { RepositoryList } from "@/features/repository/components/repository-list";
-import { Link } from "@/ui/link";
-import { Paginator } from "@/ui/paginator";
+
 import { searchParametersUpdated } from "@/features/search/model/searchParameters";
 import { $search, pageMounted } from "@/features/search/model";
+import { pageMetaUpdated } from "@/app/model/pageMeta";
+import { searchPageMeta } from "@/pages/meta";
 
 export const Search = () => {
   const search = useStore($search);
+
+  useEffect(() => {
+    pageMetaUpdated(searchPageMeta(search.parameters.query));
+  }, []);
 
   useEffect(() => pageMounted(), []);
 

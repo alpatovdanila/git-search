@@ -56,6 +56,9 @@ export const Combobox = ({
     if (event.key === "Escape") deactivate();
   };
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setQuery(e.currentTarget.value);
+
   useClickAway(containerRef, deactivate);
 
   useEffect(() => {
@@ -75,8 +78,7 @@ export const Combobox = ({
       {active && (
         <>
           <InputText
-            onDebouncedChange={setQuery}
-            debounceChangeTimeout={50}
+            onChange={handleInputChange}
             value={query}
             ref={inputRef}
             size={size}

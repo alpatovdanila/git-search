@@ -4,47 +4,23 @@ import cn from "classnames";
 
 export type InputSize = "l" | "xl";
 
-type Props = {
+type Props = Omit<React.InputHTMLAttributes<HTMLInputElement>, "size"> & {
   transparent?: boolean;
   block?: boolean;
-  onDebouncedChange?: (value: any) => void;
-  debounceChangeTimeout?: number;
   size?: InputSize;
-} & React.ButtonHTMLAttributes<HTMLInputElement>;
+};
 
-const InputComponent = (
+const Component = (
   {
     className,
     transparent = false,
     block = false,
     value,
     size,
-    onChange,
-    onDebouncedChange,
-    debounceChangeTimeout = 250,
     ...rest
   }: Props,
   ref: React.Ref<HTMLInputElement>
 ) => {
-  const [debouncedValue, setDebouncedValue] = useState(value);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onChange && onChange(e);
-    setDebouncedValue(e.currentTarget.value);
-  };
-
-  useEffect(() => {
-    const t = setTimeout(() => {
-      onDebouncedChange && onDebouncedChange(debouncedValue);
-    }, debounceChangeTimeout);
-
-    return () => clearTimeout(t);
-  }, [debouncedValue]);
-
-  useEffect(() => {
-    setDebouncedValue(value);
-  }, [value]);
-
   const cns = cn(styles.input, {
     [styles.transparent]: transparent,
     [styles.block]: block,
@@ -52,15 +28,8 @@ const InputComponent = (
   });
 
   return (
-    <input
-      {...rest}
-      type="text"
-      value={debouncedValue}
-      onChange={handleChange}
-      className={cns}
-      ref={ref}
-    />
+    <input {...rest} type="text" value={value} className={cns} ref={ref} />
   );
 };
 
-export const InputText = forwardRef(InputComponent);
+export const InputText = forwardRef(Component);

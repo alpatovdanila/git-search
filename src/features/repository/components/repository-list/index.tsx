@@ -1,5 +1,6 @@
 import React from "react";
-import { FlexCol, FlexItem, Repository } from "@/ui";
+import { FlexCol, FlexItem } from "@/ui/";
+import { Repository } from "@/features/repository/components/repository";
 import type { Repository as RepositoryType } from "@/features/repository/model/repository";
 
 type Props = {
