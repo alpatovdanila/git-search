@@ -2,8 +2,8 @@ import { createEffect, createStore, guard } from "effector";
 import { Repository } from "@/features/repository/model/repository";
 import {
   $searchParameters,
-  SearchParameters,
 } from "@/features/search/model/searchParameters";
+import {SearchParameters} from "@/api/repositories";
 import { getSearchRepositories } from "@/api/repositories";
 import { searchPageGate } from "@/pages/search/searchPageGate";
 

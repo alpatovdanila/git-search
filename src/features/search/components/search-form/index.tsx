@@ -51,8 +51,9 @@ export const SearchForm = ({
   const cns = cn(styles.searchForm, { [styles.focused]: focused });
 
   return (
+
     <div className={cns}>
-      <FlexRow block valignCenter spacing={8}>
+     <FlexRow block valignCenter spacing={8}>
         <FlexItem>
           <div className={styles.icon}>
             <Search />

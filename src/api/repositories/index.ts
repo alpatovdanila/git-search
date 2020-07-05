@@ -1,11 +1,31 @@
 import { get } from "@/api/client";
 import type { SearchResults } from "@/features/search/model/searchResults";
-import { SearchParameters } from "@/features/search/model/searchParameters";
+
 
 type Response = {
   items: [];
   total_count: number;
   incomplete_results: boolean;
+};
+
+export type SearchOrder = "desc" | "asc";
+
+export type SearchSort =
+    | "stars"
+    | "forks"
+    | "updated"
+    | "best-match"
+    | "help-wanted-issues";
+
+
+
+export type SearchParameters = {
+  query: string;
+  language: string | null;
+  order: SearchOrder;
+  sort: SearchSort;
+  page: number;
+  perPage: number;
 };
 
 const normalizeRepositoriesSearch = (response: Response): SearchResults => {
@@ -48,9 +68,9 @@ const normalizeRepositoriesSearch = (response: Response): SearchResults => {
 
 export const getSearchRepositories = ({
   query = "",
-  language = null,
-  order = null,
-  sort = null,
+  language ,
+  order ,
+  sort,
   page = 1,
   perPage,
 }: SearchParameters): Promise<SearchResults> => {

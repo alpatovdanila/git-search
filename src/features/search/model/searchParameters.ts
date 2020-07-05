@@ -12,30 +12,15 @@ import {
 
 import appConfig from "@/config";
 import { searchPageGate } from "@/pages/search/searchPageGate";
+import {SearchOrder, SearchParameters, SearchSort} from "@/api/repositories";
 
-export type Order = "desc" | "asc";
 
-export type Sort =
-  | "stars"
-  | "forks"
-  | "updated"
-  | "best-match"
-  | "help-wanted-issues";
-
-export type SearchParameters = {
-  query: string;
-  language: string | null;
-  order: Order | null;
-  sort: Sort | null;
-  page: number;
-  perPage: number;
-};
 
 export const $searchParameters = createStore<SearchParameters>({
   query: "",
   language: null,
-  order: null,
-  sort: null,
+  order: 'desc',
+  sort: 'best-match',
   page: 1,
   perPage: 25,
 });
@@ -48,8 +33,8 @@ export const refillFromUrlFx = createEffect({
     return {
       query: params.query || "",
       language: params.language || null,
-      order: (params.order as Order) || null,
-      sort: (params.sort as Sort) || null,
+      order: (params.order as SearchOrder) || 'desc',
+      sort: (params.sort as SearchSort) || 'best-match',
       page: params.page ? +params.page : 1,
     };
   },
