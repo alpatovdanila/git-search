@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/git-search/static/css/main.25ca819c.chunk.css",
+    "main.js": "/git-search/static/js/main.ef9ebb37.chunk.js",
+    "main.js.map": "/git-search/static/js/main.ef9ebb37.chunk.js.map",
+    "runtime~main.js": "/git-search/static/js/runtime~main.32812958.js",
+    "runtime~main.js.map": "/git-search/static/js/runtime~main.32812958.js.map",
+    "static/css/2.53264b96.chunk.css": "/git-search/static/css/2.53264b96.chunk.css",
+    "static/js/2.c0c447c8.chunk.js": "/git-search/static/js/2.c0c447c8.chunk.js",
+    "static/js/2.c0c447c8.chunk.js.map": "/git-search/static/js/2.c0c447c8.chunk.js.map",
+    "index.html": "/git-search/index.html",
+    "precache-manifest.b09874c26d7abb7b289723346ae46ced.js": "/git-search/precache-manifest.b09874c26d7abb7b289723346ae46ced.js",
+    "service-worker.js": "/git-search/service-worker.js",
+    "static/css/2.53264b96.chunk.css.map": "/git-search/static/css/2.53264b96.chunk.css.map",
+    "static/css/main.25ca819c.chunk.css.map": "/git-search/static/css/main.25ca819c.chunk.css.map",
+    "static/media/chevron-down.c66b213d.svg": "/git-search/static/media/chevron-down.c66b213d.svg",
+    "static/media/chevron-up.90f47098.svg": "/git-search/static/media/chevron-up.90f47098.svg",
+    "static/media/circle.d3a07084.svg": "/git-search/static/media/circle.d3a07084.svg",
+    "static/media/git-branch.9a8c65ef.svg": "/git-search/static/media/git-branch.9a8c65ef.svg",
+    "static/media/git_search.f6cc1234.svg": "/git-search/static/media/git_search.f6cc1234.svg",
+    "static/media/git_search_twoliner.38a74b27.svg": "/git-search/static/media/git_search_twoliner.38a74b27.svg",
+    "static/media/half-circle.275269c2.svg": "/git-search/static/media/half-circle.275269c2.svg",
+    "static/media/search.5437e521.svg": "/git-search/static/media/search.5437e521.svg",
+    "static/media/star.ac8ea213.svg": "/git-search/static/media/star.ac8ea213.svg"
+  }
+}
