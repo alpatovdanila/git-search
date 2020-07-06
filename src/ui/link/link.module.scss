@@ -11,18 +11,11 @@
   cursor:pointer;
   text-decoration: none;
   display:inline-block;
-  @include link-variant($color-link);
 
+  @include link-variant($color-link);
 
   &.variant_select{
     @include link-variant($color-gray, $color-link);
   }
-
-
-
-
-
-
-
 }
 
