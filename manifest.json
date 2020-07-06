@@ -1,1 +1,12 @@
-{}
+{
+  "short_name": "Git Search",
+  "name": "Git Search: find your favourite repository",
+  "description": "",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "type": "image/png",
+      "sizes": "64x64"
+    }
+  ]
+}
