@@ -1,5 +1,5 @@
 ### Git-Search
-react / effector / wouter / css modules / Github REST API 
+Typescript / React / Effector / Wouter / SCSS modules / Github REST API 
 
 [DEMO](//alpatovdanila.github.io/git-search/)
 
