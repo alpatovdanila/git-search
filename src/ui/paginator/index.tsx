@@ -16,7 +16,7 @@ export const Paginator = ({ pagesCount, activePage, onPageChange }: Props) => {
   return (
     <FlexRow spacing={8} wrap>
       {pages.map((pageNumber) => (
-        <FlexItem>
+        <FlexItem key={pageNumber}>
           {activePage === pageNumber && pageNumber}
           {activePage !== pageNumber && (
             <Link onClick={() => onPageChange(pageNumber)}>{pageNumber}</Link>

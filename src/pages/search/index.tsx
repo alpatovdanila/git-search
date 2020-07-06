@@ -68,21 +68,23 @@ export const Search = () => {
             </FlexItem>
           </FlexRow>
         </FlexItem>
-        <FlexItem>
-          <FlexRow spacing={20} block>
-            <FlexItem block>
-              <SearchReport results={results} />
-            </FlexItem>
-            <FlexItem>
-              <SortSelect
-                sort={parameters.sort}
-                order={parameters.order}
-                onOrderChange={handleOrderChange}
-                onSortChange={handleSortChange}
-              />
-            </FlexItem>
-          </FlexRow>
-        </FlexItem>
+        {results.totalCount > 0 && (
+          <FlexItem>
+            <FlexRow block>
+              <FlexItem col={6}>
+                <SearchReport results={results} />
+              </FlexItem>
+              <FlexItem col={6} style={{ textAlign: "right" }}>
+                <SortSelect
+                  sort={parameters.sort}
+                  order={parameters.order}
+                  onOrderChange={handleOrderChange}
+                  onSortChange={handleSortChange}
+                />
+              </FlexItem>
+            </FlexRow>
+          </FlexItem>
+        )}
 
         <FlexItem>
           <RepositoryList repositories={results.items} />

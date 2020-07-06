@@ -25,7 +25,7 @@ export const FlexItem = ({
 }: FlexItemProps) => {
   const cns = cn(styles.flexItem, {
     [styles.blockItem]: block,
-    [styles[`col${col}`]]: col,
+    [styles[`col_${col}`]]: col,
   });
   return (
     <div {...props} className={cns}>

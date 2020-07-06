@@ -11,7 +11,7 @@ export const RepositoryList = ({ repositories }: Props) => (
   <FlexCol spacing={48} block>
     {!repositories.length && <Empty>Nothing found</Empty>}
     {repositories.map((repo) => (
-      <FlexItem block col={6}>
+      <FlexItem block col={6} key={repo.id}>
         <Repository repository={repo} />
       </FlexItem>
     ))}
