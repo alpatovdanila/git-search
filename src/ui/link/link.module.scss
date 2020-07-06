@@ -1,9 +1,28 @@
 @import '../../styles/variables';
 
+@mixin link-variant($color, $hoverColor: $color){
+  color:$color;
+  &:hover, &.active{
+    color:$hoverColor;
+  }
+}
+
 .link{
   cursor:pointer;
   text-decoration: none;
   display:inline-block;
-  color:$color-link;
+  @include link-variant($color-link);
+
+
+  &.variant_select{
+    @include link-variant($color-gray, $color-link);
+  }
+
+
+
+
+
+
 
 }
+

@@ -12,8 +12,8 @@ export const appRoutes: RouteProps[] = [
     component: Search,
     path: "/search/",
   },
-  // {
-  //   path: "/:all*",
-  //   children: [<Redirect to={"/"} />],
-  // },
+  {
+    path: "/:all*",
+    children: [<Redirect to={"/"} />],
+  },
 ];

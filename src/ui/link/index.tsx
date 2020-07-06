@@ -3,14 +3,23 @@ import style from "./link.module.scss";
 import cn from "classnames";
 import { useLocation } from "wouter";
 
+type Props = {
+  to?: string;
+  active?: boolean;
+  variant?: "select";
+} & React.LinkHTMLAttributes<HTMLAnchorElement>;
+
 export const Link = ({
   children,
+  active = false,
   className,
+  variant,
   to,
   onClick,
   ...rest
-}: React.LinkHTMLAttributes<HTMLAnchorElement> & { to?: string }) => {
+}: Props) => {
   const [_, setLocation] = useLocation();
+
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (to) {
       e.preventDefault();
@@ -19,8 +28,14 @@ export const Link = ({
       onClick && onClick(e);
     }
   };
+
+  const cns = cn(style.link, className, {
+    [style.active]: active,
+    [style[`variant_${variant}`]]: variant,
+  });
+
   return (
-    <a {...rest} className={cn(style.link, className)} onClick={handleClick}>
+    <a {...rest} className={cns} onClick={handleClick}>
       {children}
     </a>
   );

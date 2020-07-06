@@ -8,15 +8,16 @@ import { Link } from "@/ui/link";
 import { Paginator } from "@/ui/paginator";
 import {
   searchParametersUpdated,
-  $searchParameters
+  $searchParameters,
 } from "@/features/search/model/searchParameters";
 
 import { searchPageGate } from "@/pages/search/searchPageGate";
 import { pageMetaUpdated } from "@/app/model/pageMeta";
 import { searchPageMeta } from "@/pages/meta";
 import { $searchResults } from "@/features/search/model/searchResults";
-import {SortSelect} from "@/features/search/components/sort-select";
-import {SearchOrder, SearchSort} from "@/api/repositories";
+import { SortSelect } from "@/features/search/components/sort-select";
+import { SearchOrder, SearchSort } from "@/api/repositories";
+import { SearchReport } from "@/features/search/components/search-report";
 
 export const Search = () => {
   const parameters = useStore($searchParameters);
@@ -30,8 +31,10 @@ export const Search = () => {
     searchParametersUpdated({ ...params, page: 1 });
   };
 
-  const handleSortChange = (sort:SearchSort) => searchParametersUpdated({ sort })
-  const handleOrderChange = (order:SearchOrder) => searchParametersUpdated({ order })
+  const handleSortChange = (sort: SearchSort) =>
+    searchParametersUpdated({ sort });
+  const handleOrderChange = (order: SearchOrder) =>
+    searchParametersUpdated({ order });
 
   const pagesTotal = Math.round(
     Math.min(results.totalCount, 1000) / parameters.perPage
@@ -66,8 +69,21 @@ export const Search = () => {
           </FlexRow>
         </FlexItem>
         <FlexItem>
-          <SortSelect sort={parameters.sort} order={parameters.order} onOrderChange={handleOrderChange} onSortChange={handleSortChange}/>
+          <FlexRow spacing={20} block>
+            <FlexItem block>
+              <SearchReport results={results} />
+            </FlexItem>
+            <FlexItem>
+              <SortSelect
+                sort={parameters.sort}
+                order={parameters.order}
+                onOrderChange={handleOrderChange}
+                onSortChange={handleSortChange}
+              />
+            </FlexItem>
+          </FlexRow>
         </FlexItem>
+
         <FlexItem>
           <RepositoryList repositories={results.items} />
         </FlexItem>

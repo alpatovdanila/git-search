@@ -15,7 +15,7 @@ export const App = () => {
     <>
       {transport.errors.map((error) => error)}
       {transport.fetching && (
-        <div style={{ position: "fixed", top: 0, left: 0 }}>
+        <div style={{ position: "fixed", top: 16, left: 16 }}>
           <Animation type={"rotate"} infinite>
             <HalfCircle />
           </Animation>
